@@ -55,7 +55,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "https://railsstudent.github.io/ng-watch-your-language-demo/"
             },
             "development": {
               "buildOptimizer": false,
