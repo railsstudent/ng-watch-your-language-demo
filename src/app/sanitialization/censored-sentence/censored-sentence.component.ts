@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SanitizePipe } from '../pipes/sanitize.pipe';
-import { SentenceService } from '../services/sentence.service';
 
 @Component({
   selector: 'app-censored-sentence',
@@ -10,7 +9,7 @@ import { SentenceService } from '../services/sentence.service';
     <p>
       <label for="result">
         <span class="label">Cleansed sentence: </span>
-        <span id="result" name="result" [innerHtml]="cleansedSentence() | sanitize" ></span>
+        <span id="result" name="result" [innerHtml]="sentence | sanitize" ></span>
       </label>
     </p>
   `,
@@ -22,6 +21,6 @@ import { SentenceService } from '../services/sentence.service';
   changeDetection: ChangeDetectionStrategy.OnPush, 
 })
 export class CensoredSentenceComponent {
-  sentenceService = inject(SentenceService);
-  cleansedSentence = this.sentenceService.sentenceSignal;
+  @Input({ required: true })
+  sentence!: string;
 }

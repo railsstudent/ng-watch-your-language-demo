@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { LANGUAGE } from './config';
 import { MASKED_CHARACTER } from './core';
-import { CensoredFormComponent, CensoredSentenceComponent, SentenceService } from './sanitialization';
+import { CensoredFormComponent, CensoredSentenceComponent } from './sanitialization';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,8 @@ import { CensoredFormComponent, CensoredSentenceComponent, SentenceService } fro
   template: `
     <div class="container">
       <h2>Replace bad {{language}} words with {{character}}</h2>
-      <app-censored-form />
-      <app-censored-sentence />
+      <app-censored-form (sentenceChange)="sentence = $event" />
+      <app-censored-sentence [sentence]="sentence" />
     </div>
   `,
   styles: [`
@@ -30,6 +30,6 @@ import { CensoredFormComponent, CensoredSentenceComponent, SentenceService } fro
 })
 export class AppComponent {
   language =  LANGUAGE;
-  sentence = inject(SentenceService).sentenceSignal;
   character = inject(MASKED_CHARACTER);
+  sentence = '';
 }

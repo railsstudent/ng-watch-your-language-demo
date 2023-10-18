@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SentenceService } from '../services/sentence.service';
 
 @Component({
   selector: 'app-censored-form',
@@ -12,8 +11,8 @@ import { SentenceService } from '../services/sentence.service';
         <label for="sentence">
           <span class="label">Sentence: </span>
           <textarea id="sentence" name="sentence" rows="8" cols="45"
-            [ngModel]="sentence()"
-            (ngModelChange)="sentence.set($event)">
+            [ngModel]="sentence"
+            (ngModelChange)="sentenceChange.emit($event)">
           </textarea>
         </label>
       </div>
@@ -27,5 +26,8 @@ import { SentenceService } from '../services/sentence.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CensoredFormComponent {
-  sentence = inject(SentenceService).sentenceSignal;
+  sentence = '';
+
+  @Output()
+  sentenceChange = new EventEmitter<string>();
 }
