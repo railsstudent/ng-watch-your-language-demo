@@ -11,7 +11,6 @@ export class SanitizePipe implements PipeTransform {
   domSanitizer = inject(DomSanitizer);
 
   transform(value: string): SafeHtml {
-
     const html = this.sanitizeService.cleanse(value);
     return this.domSanitizer.bypassSecurityTrustHtml(html)
   }
